@@ -1,0 +1,40 @@
+class Solution {
+    func findEvenNumbers(_ digits: [Int]) -> [Int] {
+        
+        var possibleAnswers = 100...999
+        var evenPossibleAnswers: [Int] = []
+        
+        for i in possibleAnswers {
+            if i % 2 == 0 {
+                evenPossibleAnswers.append(i)
+            }
+        }
+        
+        for answer in evenPossibleAnswers {
+            var tempDigits = digits
+            var answerChars = String((answer)).split(separator: "")
+            
+                for char in answerChars {
+                    if tempDigits.contains(Int(String(char))!) == false {
+                        
+                        evenPossibleAnswers.remove(at: evenPossibleAnswers.firstIndex(of: answer)!)
+                        break
+                    }
+                    else {
+                        
+                        if answerChars.count > 0 {
+                            
+                            answerChars.remove(at: answerChars.firstIndex(of: char)!)
+                            tempDigits.remove(at: tempDigits.firstIndex(of: Int(String(char))!)!)
+                        }
+                    }
+                }
+            if answerChars.count > 0 {
+                evenPossibleAnswers.removeAll(where: { $0 == answer })
+            }
+            
+        }
+        
+        return evenPossibleAnswers
+    }
+}
